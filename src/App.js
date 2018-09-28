@@ -1,8 +1,10 @@
-import { Switch, Route } from "react-router-dom";
 import api from "./api";
 import React, { Component } from "react";
 import "./App.css";
 import Home from "./components/Home";
+import Navigation from "./components/Navigation";
+import OwnerSign from "./components/OwnerSign";
+import UserSign from "./components/UserSign";
 
 class App extends Component {
   constructor(props) {
@@ -11,11 +13,11 @@ class App extends Component {
   render() {
     return (
       <main>
-        <header>
-          <h1>FlatSharing</h1>
-        </header>
+        <Navigation />
+        {/*<Home />*/}
+        {/*<OwnerSign />*/}
+        <UserSign />
 
-        <Home />
       </main>
     );
   }
