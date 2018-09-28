@@ -1,5 +1,5 @@
 import React from "react";
-import SignUp from "./SignUp";
+import { Link } from "react-router-dom";
 
 // import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ function Home(props) {
     <section>
       <h2>Home Page</h2>
       <p>Welcome</p>
-      <SignUp />
+      <Link to="/signup">Sign Up now</Link>
     </section>
   );
 }
