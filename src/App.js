@@ -3,6 +3,12 @@ import React, { Component } from "react";
 import "./App.css";
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
+import {Switch, Route} from 'react-router-dom';
+
+//MDBootstrap
+import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css'; 
+import 'mdbreact/dist/css/mdb.css';
 
 class App extends Component {
   constructor(props) {
