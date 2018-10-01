@@ -1,20 +1,70 @@
-import React from 'react';
+import React, { Component } from "react";
+import api from "../api.js";
+import { Redirect } from "react-router-dom";
 
+class Login extends Component {
+  constructor(props) {
+    super(props);
 
-const Login = () => {
-  return (
-    <div className="login">
-    <label>
-    Email: <input type="email" placeholder="IanSolo@gmail.com"/>
-    </label>
+    this.state = { email: "", originalPassword: "" };
+  }
 
-    <label>
-    Password: <input type="password" placeholder="Keep it secret from the sith "/>
-    </label>
-    <button>Log In</button>
-    </div>
-  )
+  updateInput(event) {
+    const { value, name } = event.target;
+    this.setState({ [name]: value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    api
+      .post("/login", this.state)
+      .then(response => {
+        console.log("LOGIN ", response.data);
+        const { onLogin } = this.props;
+        onLogin(response.data.userDoc);
+      })
+      .catch(err => {
+        console.log(err);
+        alert("Sorry! There was an error.");
+      });
+  }
+
+  render() {
+    const { currentUser } = this.props;
+    const { email, originalPassword } = this.state;
+
+    if (currentUser) {
+      return <Redirect to="/room-list" />;
+    }
+    return (
+      <div className="login">
+        <form onSubmit={event => this.handleSubmit(event)}>
+          <label>
+            Email:{" "}
+            <input
+              type="email"
+              placeholder="IanSolo@gmail.com"
+              name="email"
+              value={email}
+              onChange={event => this.updateInput(event)}
+            />
+          </label>
+
+          <label>
+            Password:{" "}
+            <input
+              type="password"
+              placeholder="Keep it secret from the sith "
+              name="originalPassword"
+              value={originalPassword}
+              onChange={event => this.updateInput(event)}
+            />
+          </label>
+          <button>Log In</button>
+        </form>
+      </div>
+    );
+  }
 }
-
 
 export default Login;

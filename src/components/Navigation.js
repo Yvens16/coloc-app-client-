@@ -1,13 +1,30 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-const Navigation = () => {
+function Navigation(props) {
+  const { currentUser } = props;
+
   return (
     <nav>
-    <NavLink exact to="/">Home</NavLink>
-    <NavLink  to="/signup">Sign Up</NavLink>
+      {!currentUser && (
+        <span>
+          <NavLink to="/signup">Sign Up</NavLink>
+          <br />
+          <NavLink to="/login">Log In</NavLink>
+        </span>
+      )}
+
+      {currentUser && (
+        <span>
+          <NavLink exact to="/">
+            Home
+          </NavLink>
+          <br />
+          <NavLink to="/room-list">Room list</NavLink>
+        </span>
+      )}
     </nav>
-  )
+  );
 }
 
 export default Navigation;

@@ -5,6 +5,7 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
 
+    this.originalImage = "";
     this.state = {
       firstName: "",
       lastName: "",
@@ -38,6 +39,33 @@ class SignUp extends Component {
       .catch(err => {
         console.log(err);
         alert("Sorry! There was a problem.");
+      });
+  }
+
+  updateImage(event) {
+    const { files } = event.target;
+    console.log("File SELECTED", files[0]);
+
+    if (!files[0]) {
+      // reset back to the old image if you unselect your uploaded file
+      this.setState({ avatar: this.originalImage });
+      return;
+    }
+    // we need the "FormData" class to upload files to the API
+    const uploadData = new FormData();
+    // this name "imageFile" is connected with your backend route
+    uploadData.append("imageFile", files[0]);
+
+    api
+      .post("/upload-image", uploadData)
+      .then(response => {
+        console.log("File UPLOADED", response.data);
+        const { imageUrl } = response.data;
+        this.setState({ avatar: imageUrl });
+      })
+      .catch(err => {
+        console.log(err);
+        alert("Sorry! There was an error. 💩");
       });
   }
 
@@ -143,8 +171,11 @@ class SignUp extends Component {
           </label>
           <br />
           <label>
-            Picture: <input type="file" />
+            Picture:{" "}
+            <input type="file" onChange={event => this.updateImage(event)} />
           </label>
+          <br />
+          <img className="avatar-preview" src={avatar} />
           <br />
           <label>
             Password:{" "}
