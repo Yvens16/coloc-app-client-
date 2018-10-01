@@ -1,5 +1,11 @@
 import React, { Component } from "react";
+
 import api from "../api.js";
+
+import { Link } from "react-router-dom";
+
+import UserSign from "./UserSign.js";
+import OwnerSign from "./OwnerSign.js";
 
 class SignUp extends Component {
   constructor(props) {
@@ -18,7 +24,21 @@ class SignUp extends Component {
       email: "",
       phone: "",
       originalPassword: "",
-      role: ""
+      role: "",
+
+      housing: "Studio",
+      streetNum: "",
+      address: "",
+      zipCode: "",
+      rent: "",
+      roomMate: "0",
+      roomNum: "1",
+      area: "",
+      description: "",
+      picture: ""
+
+      // display: "none",
+      // displayOwner: "none"
     };
   }
 
@@ -29,12 +49,18 @@ class SignUp extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+
     api
       .post("/signup", this.state)
       .then(response => {
         console.log("SIGNUP ", response.data);
         const { onSignUp } = this.props;
         onSignUp(response.data.userDoc);
+
+        return api.post("/flats", this.state);
+      })
+      .then(response => {
+        console.log("[Flat Creation] ", response.data);
       })
       .catch(err => {
         console.log(err);
@@ -69,6 +95,17 @@ class SignUp extends Component {
       });
   }
 
+  // removeStyle() {
+  //   this.setState({ display: this.state.display === "none" ? "" : "none",
+  // });
+  // };
+
+  // removeStyleOwner() {
+  //   this.setState({ displayOwner: this.state.displayOwner === "none" ? "" : "none",
+
+  // });
+  // };
+
   render() {
     const {
       firstName,
@@ -81,7 +118,18 @@ class SignUp extends Component {
       email,
       phone,
       originalPassword,
-      role
+      role,
+      budget,
+      streetNum,
+      address,
+      zipCode,
+      rent,
+      roomMate,
+      housing,
+      roomNum,
+      area,
+      description,
+      picture
     } = this.state;
 
     return (
@@ -195,10 +243,12 @@ class SignUp extends Component {
               name="role"
               checked={role === "normal"}
               onChange={event => this.updateInput(event)}
+              // onClick={() => this.removeStyle()}
             />
-            I'm looking for a flatsharing
+            I am looking for a flatsharing
           </label>
           <br />
+
           <label>
             <input
               type="radio"
@@ -206,11 +256,36 @@ class SignUp extends Component {
               name="role"
               checked={role === "owner"}
               onChange={event => this.updateInput(event)}
+              //onClick={() => this.removeStyleOwner()}
             />
             I offer a flatsharing
           </label>
           <br />
-          <button>Signup Now!</button>
+          {role === "normal" && (
+            <UserSign
+              presentation={presentation}
+              budget={budget}
+              updateInput={event => this.updateInput(event)}
+              style={this.state.display}
+            />
+          )}
+
+          {role === "owner" && (
+            <OwnerSign
+              streetNum={streetNum}
+              address={address}
+              zipCode={zipCode}
+              rent={rent}
+              roomMate={roomMate}
+              housing={housing}
+              roomNum={roomNum}
+              area={area}
+              description={description}
+              picture={picture}
+              updateInput={event => this.updateInput(event)}
+              style={this.state.displayOwner}
+            />
+          )}
         </form>
       </section>
     );

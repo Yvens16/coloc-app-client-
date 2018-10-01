@@ -1,39 +1,53 @@
 import React from 'react';
 
-const OwnerSign = () => { 
+const OwnerSign = (props) => { 
+ const { style,
+  updateInput,
+  streetNum,
+  address,
+  zipCode,
+  rent,
+  roomMate,
+  housing,
+  roomNum,
+  area,
+  description,
+  picture} = props;
+
   return (
-    <div className="OwnerSign" >
+    <div className="OwnerSign" style={{display: style}}>
       <label>
-        Street Number: <input type="number" placeholder="Example: 12"/>
+              
+              Street Number: <input type="number" value={streetNum} name="streetNum" onChange={event => updateInput(event)}   placeholder="Example: 12"/>
       </label>
       <label>
-        Address: <input type="text" placeholder="Exemple: 13 rue de l'Alma..."/>
+        Address: <input type="text" value={address} name="address" onChange={event => updateInput(event)} placeholder="Exemple: 13 rue de l'Alma..."/>
       </label>
       <label>
-     Zip Code: <input type="number" placeholder="Example: 75018"/>
+     Zip Code: <input type="number" value={zipCode} name="zipCode" onChange={event => updateInput(event)} placeholder="Example: 75018"/>
     </label>
     <label>
-        Rent: <input type="number" placeholder="675"/>
+        Rent: <input type="number" value={rent} name="rent"  onChange={event => updateInput(event)} placeholder="675"/>
       </label>
       <label>
       Flat-Mates present:
-      <select>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10+</option>
+      <select value={roomMate} name="roomMate" onChange={event => updateInput(event)}>
+      <option>1</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+      <option>6</option>
+      <option>7</option>
+      <option>8</option>
+      <option>9</option>
+      <option>10+</option>
       </select>
       (1 to 10+)
       </label>
 
       <label >
-      Housing: <select>
+      Housing: <select value={housing} name="housing" onChange={event => updateInput(event)}>
       <option value="Studio">Studio</option>
       <option value="Appartments">Appartments</option>
       <option value="Duplex">Duplex</option>
@@ -45,32 +59,33 @@ const OwnerSign = () => {
 
       <label>
         Nb of rooms:
-        <select>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10+</option>
+        <select value={roomNum} name="roomNum" onChange={event => updateInput(event)}>
+        <option>0</option>
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+        <option>7</option>
+        <option>8</option>
+        <option>9</option>
+        <option>10+</option>
         </select>
         (1 to 10+)
       </label>
        
       <label >
-      Area: <input type="number" placeholder="Example: 80"/> 
+      Area: <input type="number" name="area" value={area} onChange={event => updateInput(event)} placeholder="Example: 80"/> 
       (m2)
       </label>
 
       <label>
-        Description: <textarea name="" id="" cols="30" rows="10" placeholder="Describe your environnement , how's the appartment? how it is to live with you? etc..."></textarea>
+        Description: <textarea name="description"  value={description} onChange={event => updateInput(event)} cols="30" rows="10" placeholder="Describe your environnement , how's the appartment? how it is to live with you? etc..."></textarea>
       </label>
 
       <label>
-      Picture: <input type="file"/>
+      Picture: <input type="file" name="picture"/>
       </label>
 
       <button>Sign Up</button>

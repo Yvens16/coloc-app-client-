@@ -4,9 +4,15 @@ body {
   font-family: sans-serif;
 }
 
-.OwnerSign,
+
 .UserSign{
   display: flex;
   flex-direction: column;
   background-color: red;
+}
+
+.OwnerSign{
+  display: flex;
+  flex-direction: column;
+  background-color: blue;
 }
