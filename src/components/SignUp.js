@@ -169,7 +169,7 @@ class SignUp extends Component {
       console.log("ici");
       return <Redirect to="/room-list" />;
     } else if (role === "owner" && isSubmit) {
-      return <Redirect to="/my-rooms" />;
+      return <Redirect to="/my-flats" />;
     }
 
     const { currentUser } = this.props;
@@ -177,7 +177,7 @@ class SignUp extends Component {
     if (currentUser && role === "normal") {
       return <Redirect to="/room-list" />;
     } else if (currentUser && role === "owner") {
-      return <Redirect to="/my-rooms" />;
+      return <Redirect to="/my-flats" />;
     }
 
 
