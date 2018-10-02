@@ -13,7 +13,8 @@ const OwnerSign = props => {
     housing,
     roomNum,
     area,
-    description
+    description,
+    picture
   } = props;
 
   return (
@@ -87,7 +88,7 @@ const OwnerSign = props => {
           onChange={event => updateInput(event)}
         >
           <option value="Studio">Studio</option>
-          <option value="Appartments">Appartments</option>
+          <option value="Appartment">Appartment</option>
           <option value="Duplex">Duplex</option>
           <option value="Loft">Loft</option>
           <option value="House">House</option>
@@ -102,7 +103,6 @@ const OwnerSign = props => {
           name="roomNum"
           onChange={event => updateInput(event)}
         >
-          <option>0</option>
           <option>1</option>
           <option>2</option>
           <option>3</option>

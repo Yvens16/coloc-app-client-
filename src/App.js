@@ -7,12 +7,13 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import RoomList from "./components/RoomList";
 import Navigation from "./components/Navigation";
-import MyRooms from "./components/MyRooms";
+import MyFlats from "./components/MyFlats";
 
 //MDBootstrap
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
+import AddFlats from "./components/AddFlats";
 
 class App extends Component {
   constructor(props) {
@@ -88,7 +89,8 @@ class App extends Component {
             )}
           />
           <Route path="/room-list" component={RoomList} />
-          <Route path="/my-rooms" component={MyRooms} />
+          <Route path="/my-flats" component={MyFlats} />
+          <Route path="/flats-add" component={AddFlats} />
         </Switch>
       </main>
     );

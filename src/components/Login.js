@@ -37,7 +37,7 @@ class Login extends Component {
       console.log(currentUser.role);
       return <Redirect to="/room-list" />;
     } else if (currentUser && currentUser.role === "owner") {
-      return <Redirect to="/my-rooms" />;
+      return <Redirect to="/my-flats" />;
     }
 
     return (
