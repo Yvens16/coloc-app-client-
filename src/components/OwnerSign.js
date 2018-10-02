@@ -151,8 +151,13 @@ const OwnerSign = props => {
           name="picture"
         />
       </label>
+      {
+        picture.map((onePic, index) =>
+          <img key={index} className="avatar-preview" src={onePic} />
+          )
+      }
+
       
-      <img src={picture} />
 
       <button>Sign Up</button>
     </div>

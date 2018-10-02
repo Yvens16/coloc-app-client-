@@ -88,7 +88,8 @@ class SignUp extends Component {
       .post("/upload-image", uploadData)
       .then(response => {
         console.log("File UPLOADED", response.data);
-        const { imageUrl } = response.data;
+        const { imageUrl } = response.data[0];
+        console.log(response.data);
         this.setState({ avatar: imageUrl });
       })
       .catch(err => {
@@ -115,8 +116,8 @@ class SignUp extends Component {
         console.log("[FILE UPLOADED]", response.data);
         const dataArray = response.data;
         const picsArray = [];
-        dataArray.forEach(one => {
-          return picsArray.push(one.imageUrl);
+        dataArray.forEach(oneImage => {
+          return picsArray.push(oneImage.imageUrl);
         });
         this.setState({ picture: picsArray });
       })
@@ -161,7 +162,7 @@ class SignUp extends Component {
       area,
       description,
       picture,
-      isSubmit
+      isSubmit,
     } = this.state;
 
     if (role === "normal" && isSubmit) {
@@ -178,6 +179,7 @@ class SignUp extends Component {
     } else if (currentUser && role === "owner") {
       return <Redirect to="/my-rooms" />;
     }
+
 
     return (
       <section>
@@ -333,6 +335,7 @@ class SignUp extends Component {
               updateInput={event => this.updateInput(event)}
               updatePicture={event => this.updatePicture(event)}
               style={this.state.displayOwner}
+
             />
           )}
         </form>

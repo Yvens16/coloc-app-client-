@@ -87,7 +87,7 @@ class App extends Component {
               />
             )}
           />
-          <Route path="/room-list" component={RoomList} />
+          <Route path="/room-list" render={() => <RoomList currentUser={currentUser} /> }  />
           <Route path="/my-rooms" component={MyRooms} />
         </Switch>
       </main>

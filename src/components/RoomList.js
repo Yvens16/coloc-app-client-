@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import Navigation from "./Navigation";
-import SearchBar from "./SearchBar";
-
 import {Link} from 'react-router-dom';
 
 import api from '../api.js';
@@ -30,15 +28,23 @@ class RoomList extends Component {
 
   render() {
     const {rooms} = this.state;
+    const {currentUser}= this.props;
+    console.log("currentUser", currentUser);
+
     return (
       <section>
         <h2>Room list</h2>
-        <SearchBar />
+        <section>
+        <input type="search" />
+      </section>
 
         <ul>
           {
             rooms.map(oneRoom => 
              <li key={oneRoom._id}>
+              {currentUser && (
+                <button>Room details </button>
+              )}
              <h1>{oneRoom.housing}</h1>
              </li>
               )
