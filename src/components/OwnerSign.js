@@ -13,7 +13,8 @@ const OwnerSign = props => {
     housing,
     roomNum,
     area,
-    description
+    description,
+    picture
   } = props;
 
   return (
@@ -150,6 +151,7 @@ const OwnerSign = props => {
           name="picture"
         />
       </label>
+      
       <img src={picture} />
 
       <button>Sign Up</button>
