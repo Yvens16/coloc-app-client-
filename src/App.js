@@ -1,12 +1,13 @@
 import api from "./api";
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect, Link } from "react-router-dom";
 import "./App.css";
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import RoomList from "./components/RoomList";
 import Navigation from "./components/Navigation";
+import MyRooms from "./components/MyRooms";
 
 //MDBootstrap
 import "font-awesome/css/font-awesome.min.css";
@@ -49,9 +50,9 @@ class App extends Component {
         alert("Sorry! There was an error");
       });
   }
-
   render() {
     const { currentUser } = this.state;
+
     return (
       <main>
         <header>
@@ -60,7 +61,9 @@ class App extends Component {
           {currentUser && (
             <span>
               <b>{currentUser.email}</b>
-              <button onClick={() => this.logoutClick()}>Log Out</button>
+              <Link to="/">
+                <button onClick={() => this.logoutClick()}>Log Out</button>
+              </Link>
             </span>
           )}
         </header>
@@ -69,7 +72,10 @@ class App extends Component {
           <Route
             path="/signup"
             render={() => (
-              <SignUp onSignUp={userDoc => this.updateUser(userDoc)} />
+              <SignUp
+                onSignUp={userDoc => this.updateUser(userDoc)}
+                currentUser={currentUser}
+              />
             )}
           />
           <Route
@@ -82,6 +88,7 @@ class App extends Component {
             )}
           />
           <Route path="/room-list" component={RoomList} />
+          <Route path="/my-rooms" component={MyRooms} />
         </Switch>
       </main>
     );

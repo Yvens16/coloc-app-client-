@@ -150,6 +150,7 @@ const OwnerSign = props => {
           name="picture"
         />
       </label>
+      <img src={picture} />
 
       <button>Sign Up</button>
     </div>

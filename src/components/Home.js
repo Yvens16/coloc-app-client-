@@ -9,7 +9,6 @@ function Home(props) {
     <section>
       <h2>Home Page</h2>
       <p>Welcome</p>
-      <Link to="/signup">Sign Up now</Link>
     </section>
   );
 }

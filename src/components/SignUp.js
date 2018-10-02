@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import api from "../api.js";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import UserSign from "./UserSign.js";
 import OwnerSign from "./OwnerSign.js";
@@ -12,6 +12,7 @@ class SignUp extends Component {
     super(props);
 
     this.originalImage = "";
+    this.originalPicture = "";
     this.state = {
       firstName: "",
       lastName: "",
@@ -35,7 +36,8 @@ class SignUp extends Component {
       roomNum: "1",
       area: "",
       description: "",
-      picture: []
+      picture: [],
+      isSubmit: false
 
       // display: "none",
       // displayOwner: "none"
@@ -49,19 +51,18 @@ class SignUp extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
     api
       .post("/signup", this.state)
       .then(response => {
         console.log("SIGNUP ", response.data);
         const { onSignUp } = this.props;
         onSignUp(response.data.userDoc);
-
-        return api.post("/flats", this.state);
+        this.setState({ isSubmit: true });
+        if (this.state.role === "owner") {
+          return api.post("/flats", this.state);
+        }
       })
-      .then(response => {
-        console.log("[Flat Creation] ", response.data);
-      })
+      .then(flatDoc => console.log("Flat created", flatDoc))
       .catch(err => {
         console.log(err);
         alert("Sorry! There was a problem.");
@@ -159,8 +160,24 @@ class SignUp extends Component {
       roomNum,
       area,
       description,
-      picture
+      picture,
+      isSubmit
     } = this.state;
+
+    if (role === "normal" && isSubmit) {
+      console.log("ici");
+      return <Redirect to="/room-list" />;
+    } else if (role === "owner" && isSubmit) {
+      return <Redirect to="/my-rooms" />;
+    }
+
+    const { currentUser } = this.props;
+
+    if (currentUser && role === "normal") {
+      return <Redirect to="/room-list" />;
+    } else if (currentUser && role === "owner") {
+      return <Redirect to="/my-rooms" />;
+    }
 
     return (
       <section>
@@ -314,6 +331,7 @@ class SignUp extends Component {
               picture={picture}
               multipleUpload={event => this.multipleUpload(event)}
               updateInput={event => this.updateInput(event)}
+              updatePicture={event => this.updatePicture(event)}
               style={this.state.displayOwner}
             />
           )}
