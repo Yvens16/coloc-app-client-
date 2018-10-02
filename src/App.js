@@ -7,7 +7,6 @@ import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import RoomList from "./components/RoomList";
 import Navigation from "./components/Navigation";
-import { Switch, Route } from "react-router-dom";
 
 //MDBootstrap
 import "font-awesome/css/font-awesome.min.css";

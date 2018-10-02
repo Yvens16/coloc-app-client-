@@ -35,7 +35,7 @@ class SignUp extends Component {
       roomNum: "1",
       area: "",
       description: "",
-      picture: ""
+      picture: []
 
       // display: "none",
       // displayOwner: "none"
@@ -71,6 +71,7 @@ class SignUp extends Component {
   updateImage(event) {
     const { files } = event.target;
     console.log("File SELECTED", files[0]);
+    console.log("files", files);
 
     if (!files[0]) {
       // reset back to the old image if you unselect your uploaded file
@@ -81,7 +82,7 @@ class SignUp extends Component {
     const uploadData = new FormData();
     // this name "imageFile" is connected with your backend route
     uploadData.append("imageFile", files[0]);
-
+    console.log("[uploadData]", uploadData);
     api
       .post("/upload-image", uploadData)
       .then(response => {
@@ -94,6 +95,35 @@ class SignUp extends Component {
         alert("Sorry! There was an error. 💩");
       });
   }
+
+  multipleUpload = event => {
+    // Intial FormData
+    const formData = new FormData();
+    //Push all the axios request promise into a single array
+    //console.log("[FILE LIST]", event.target.files);
+
+    const uploaders = Array.from(event.target.files).forEach(oneFile => {
+      formData.append("oneFile", oneFile);
+    });
+
+    console.log("[FORMDATA]", formData);
+
+    api
+      .post("/upload-image", formData)
+      .then(response => {
+        console.log("[FILE UPLOADED]", response.data);
+        const dataArray = response.data;
+        const picsArray = [];
+        dataArray.forEach(one => {
+          return picsArray.push(one.imageUrl);
+        });
+        this.setState({ picture: picsArray });
+      })
+      .catch(err => {
+        console.log(err);
+        alert("error");
+      });
+  };
 
   // removeStyle() {
   //   this.setState({ display: this.state.display === "none" ? "" : "none",
@@ -282,6 +312,7 @@ class SignUp extends Component {
               area={area}
               description={description}
               picture={picture}
+              multipleUpload={event => this.multipleUpload(event)}
               updateInput={event => this.updateInput(event)}
               style={this.state.displayOwner}
             />
