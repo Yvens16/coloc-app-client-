@@ -33,9 +33,13 @@ class Login extends Component {
     const { currentUser } = this.props;
     const { email, originalPassword } = this.state;
 
-    if (currentUser) {
+    if (currentUser && currentUser.role === "normal") {
+      console.log(currentUser.role);
       return <Redirect to="/room-list" />;
+    } else if (currentUser && currentUser.role === "owner") {
+      return <Redirect to="/my-rooms" />;
     }
+
     return (
       <div className="login">
         <form onSubmit={event => this.handleSubmit(event)}>

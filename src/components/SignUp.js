@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import api from "../api.js";
 
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 import UserSign from "./UserSign.js";
 import OwnerSign from "./OwnerSign.js";
@@ -12,6 +12,7 @@ class SignUp extends Component {
     super(props);
 
     this.originalImage = "";
+    this.originalPicture = "";
     this.state = {
       firstName: "",
       lastName: "",
@@ -35,7 +36,8 @@ class SignUp extends Component {
       roomNum: "1",
       area: "",
       description: "",
-      picture: ""
+      picture: "",
+      isSubmit: false
 
       // display: "none",
       // displayOwner: "none"
@@ -49,19 +51,18 @@ class SignUp extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
     api
       .post("/signup", this.state)
       .then(response => {
         console.log("SIGNUP ", response.data);
         const { onSignUp } = this.props;
         onSignUp(response.data.userDoc);
-
-        return api.post("/flats", this.state);
+        this.setState({ isSubmit: true });
+        if (this.state.role === "owner") {
+          return api.post("/flats", this.state);
+        }
       })
-      .then(response => {
-        console.log("[Flat Creation] ", response.data);
-      })
+      .then(flatDoc => console.log("Flat created", flatDoc))
       .catch(err => {
         console.log(err);
         alert("Sorry! There was a problem.");
@@ -88,6 +89,31 @@ class SignUp extends Component {
         console.log("File UPLOADED", response.data);
         const { imageUrl } = response.data;
         this.setState({ avatar: imageUrl });
+      })
+      .catch(err => {
+        console.log(err);
+        alert("Sorry! There was an error. 💩");
+      });
+  }
+
+  updatePicture(event) {
+    const { files } = event.target;
+    console.log("File SELECTED", files[0]);
+    if (!files[0]) {
+      // reset back to the old image if you unselect your uploaded file
+      this.setState({ picture: this.originalPicture });
+      return;
+    }
+    // we need the "FormData" class to upload files to the API
+    const uploadData = new FormData();
+    // this name "imageFile" is connected with your backend route
+    uploadData.append("imageFiles", files[0]);
+    api
+      .post("/upload-images", uploadData)
+      .then(response => {
+        console.log("Files UPLOADED", response.data);
+        const { imageUrl } = response.data;
+        this.setState({ picture: imageUrl });
       })
       .catch(err => {
         console.log(err);
@@ -129,8 +155,24 @@ class SignUp extends Component {
       roomNum,
       area,
       description,
-      picture
+      picture,
+      isSubmit
     } = this.state;
+
+    if (role === "normal" && isSubmit) {
+      console.log("ici");
+      return <Redirect to="/room-list" />;
+    } else if (role === "owner" && isSubmit) {
+      return <Redirect to="/my-rooms" />;
+    }
+
+    const { currentUser } = this.props;
+
+    if (currentUser && role === "normal") {
+      return <Redirect to="/room-list" />;
+    } else if (currentUser && role === "owner") {
+      return <Redirect to="/my-rooms" />;
+    }
 
     return (
       <section>
@@ -283,6 +325,7 @@ class SignUp extends Component {
               description={description}
               picture={picture}
               updateInput={event => this.updateInput(event)}
+              updatePicture={event => this.updatePicture(event)}
               style={this.state.displayOwner}
             />
           )}
