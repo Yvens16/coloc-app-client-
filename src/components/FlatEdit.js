@@ -1,21 +1,22 @@
 import React, { Component } from "react";
 import api from "../api";
+import { Redirect } from "react-router-dom";
 
 class FlatEdit extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      housing,
-      streetNum,
-      address,
-      zipCode,
-      rent,
-      roomMate,
-      roomNum,
-      area,
-      description,
-      picture,
+      housing: "",
+      streetNum: "",
+      address: "",
+      zipCode: "",
+      rent: "",
+      roomMate: "",
+      roomNum: "",
+      area: "",
+      description: "",
+      picture: [],
       isSubmitSuccess: false
     };
   }
@@ -37,6 +38,29 @@ class FlatEdit extends Component {
       });
   }
 
+  updateInput(event) {
+    const { value, name } = event.target;
+    this.setState({ [name]: value });
+  }
+
+  handleSubmit(event) {
+    event.preventDefault();
+    const { params } = this.props.match;
+
+    // PUT and POST requests receive a 2nd argument: the data to submit
+    // (here we are submitting the state we've gathered in the form)
+    api
+      .put(`/flats/${params.flatId}`, this.state)
+      .then(response => {
+        console.log("Flat PUT ", response.data);
+        this.setState({ isSubmitSuccess: true });
+      })
+      .catch(err => {
+        console.log(err);
+        alert("Sorry! Something went wrong with edit form");
+      });
+  }
+
   render() {
     const {
       housing,
@@ -52,18 +76,25 @@ class FlatEdit extends Component {
       isSubmitSuccess
     } = this.state;
 
+    // Redirect when submit is success
+    if (isSubmitSuccess) {
+      // redirect back to the phone details page if the submission worked!
+      const { params } = this.props.match;
+      return <Redirect to={`/flats/${params.flatId}`} />;
+    }
+
     return (
       <section>
         <div>
           <h3>Edit my flat</h3>
-          <form>
+          <form onSubmit={event => this.handleSubmit(event)}>
             <label>
               Street Number:{" "}
               <input
                 type="number"
                 value={streetNum}
                 name="streetNum"
-                onChange={event => updateInput(event)}
+                onChange={event => this.updateInput(event)}
                 placeholder="Example: 12"
               />
             </label>
@@ -73,7 +104,7 @@ class FlatEdit extends Component {
                 type="text"
                 value={address}
                 name="address"
-                onChange={event => updateInput(event)}
+                onChange={event => this.updateInput(event)}
                 placeholder="Exemple: 13 rue de l'Alma..."
               />
             </label>
@@ -83,7 +114,7 @@ class FlatEdit extends Component {
                 type="number"
                 value={zipCode}
                 name="zipCode"
-                onChange={event => updateInput(event)}
+                onChange={event => this.updateInput(event)}
                 placeholder="Example: 75018"
               />
             </label>
@@ -93,7 +124,7 @@ class FlatEdit extends Component {
                 type="number"
                 value={rent}
                 name="rent"
-                onChange={event => updateInput(event)}
+                onChange={event => this.updateInput(event)}
                 placeholder="675"
               />
             </label>
@@ -102,7 +133,7 @@ class FlatEdit extends Component {
               <select
                 value={roomMate}
                 name="roomMate"
-                onChange={event => updateInput(event)}
+                onChange={event => this.updateInput(event)}
               >
                 <option>1</option>
                 <option>2</option>
@@ -123,7 +154,7 @@ class FlatEdit extends Component {
               <select
                 value={housing}
                 name="housing"
-                onChange={event => updateInput(event)}
+                onChange={event => this.updateInput(event)}
               >
                 <option value="Studio">Studio</option>
                 <option value="Appartment">Appartment</option>
@@ -139,7 +170,7 @@ class FlatEdit extends Component {
               <select
                 value={roomNum}
                 name="roomNum"
-                onChange={event => updateInput(event)}
+                onChange={event => this.updateInput(event)}
               >
                 <option>1</option>
                 <option>2</option>
@@ -161,7 +192,7 @@ class FlatEdit extends Component {
                 type="number"
                 name="area"
                 value={area}
-                onChange={event => updateInput(event)}
+                onChange={event => this.updateInput(event)}
                 placeholder="Example: 80"
               />
               (m2)
@@ -172,7 +203,7 @@ class FlatEdit extends Component {
               <textarea
                 name="description"
                 value={description}
-                onChange={event => updateInput(event)}
+                onChange={event => this.updateInput(event)}
                 cols="30"
                 rows="10"
                 placeholder="Describe your environnement , how's the appartment? how it is to live with you? etc..."
@@ -183,7 +214,7 @@ class FlatEdit extends Component {
               Picture:{" "}
               <input
                 type="file"
-                onChange={event => multipleUpload(event)}
+                // onChange={event => this.multipleUpload(event)}
                 multiple
                 name="picture"
               />
@@ -192,7 +223,7 @@ class FlatEdit extends Component {
               <img key={index} className="avatar-preview" src={onePic} />
             ))}
 
-            <button>Sign Up</button>
+            <button>Saves changes</button>
           </form>
         </div>
       </section>

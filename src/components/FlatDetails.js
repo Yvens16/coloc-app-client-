@@ -69,6 +69,8 @@ class FlatDetails extends Component {
         {picture.map((onePic, index) => (
           <img key={index} src={onePic.picture} />
         ))}
+
+        <Link to={`/flats/${_id}/edit`}>Edit this Flat</Link>
       </section>
     );
   }
