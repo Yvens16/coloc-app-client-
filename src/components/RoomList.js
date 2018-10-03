@@ -2,6 +2,10 @@ import React, { Component } from "react";
 import Navigation from "./Navigation";
 import {Link} from 'react-router-dom';
 
+import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css'; 
+import 'mdbreact/dist/css/mdb.css';
+
 import api from '../api.js';
 import Search from "./Search";
 
@@ -11,54 +15,74 @@ class RoomList extends Component {
     
     this.state={
       rooms: [],
-      filterNum:''
+      roomsBackUp: [],
+      userInput:''
     };
   }
 
-  filterUpdate(value){
-    this.setState({
-      filterNum:value
-    })
-  }
-
+  
   componentDidMount() {
     api.get("/flats")
     .then(response => {
-      this.setState({ rooms: response.data })
+      this.setState({ rooms: response.data, roomsBackUp: response.data })
+      console.log('[response.data]', response.data);
     })
     .catch(err => {
       console.log(err);
       alert("Something went wrong!");
     })
-
-
+    
+    
   }
-
+  
+  updateZipCode(event){
+    const inputTag = event.target;
+    const roomsCopy = this.state.roomsBackUp;
+    console.log( 'ROOMS COPY', roomsCopy );
+    const zipResult = roomsCopy.filter(oneRoom => {
+      return oneRoom.zipCode.toString().includes(inputTag.value) ||  oneRoom.housing.toString().includes(inputTag.value)
+    }
+      )
+      console.log( zipResult )
+      this.setState({ rooms: zipResult, userInput: inputTag.value })
+  }
+   
   render() {
-    const {rooms} = this.state;
+    const {rooms, userInput} = this.state;
     const {currentUser}= this.props;
 
     return (
       <section>
       <Search
-      filterNum={this.state.filterNum}
-      filterUpdate={this.filterUpdate.bind(this)}
+      inputValue={userInput}
+      onZipSearch= {event => this.updateZipCode(event)}
       />
         <h2>Room list</h2>
        
 
-        <ul>
           {
-            rooms.map(oneRoom => 
+            rooms
+            .map(oneRoom => 
              <li key={oneRoom._id}>
+            <img src={oneRoom.picture[0]} />
+             <h1> A {oneRoom.roomNum} rooms {oneRoom.housing} of {oneRoom.area} m2  </h1>
+             <b> {oneRoom.zipCode} | {oneRoom.roomMate} other room-mates </b>
+             <p> {oneRoom.description} </p>
+             <h1> <b> {oneRoom.rent}€ </b> </h1>
+            {/* {
+             oneRoom.picture.map((onePic, index)=>
+             <img key={index} className="avatar-preview" src={onePic} />
+             )
+             }*/}
               {currentUser && (
                 <button>Room details </button>
               )}
-             <h1>{oneRoom.housing}</h1>
              </li>
+
+          
               )
           }
-        </ul>
+        
 
       </section>
     );
@@ -66,3 +90,6 @@ class RoomList extends Component {
 }
 
 export default RoomList;
+
+// .indexOf(filterNum)
+              

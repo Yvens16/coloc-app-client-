@@ -1,22 +1,14 @@
 import React from 'react';
 
 class Search extends React.Component{
-
-  filterUpdate () {
-    const val = this.myValue.value;
-    this.props.filterUpdate(val)
-  }
-
   render () {
     return (
       <section>
-      <form> 
-      <input type="number" 
-      placeholder="Search by arrondissement like: 75008"
-      ref={(value) => {this.myValue = value}} // callback function
-      onChange = {this.filterUpdate.bind(this)}
+      <input type="search" 
+      placeholder="Search by arrondissement or housing"
+      value={this.props.inputValue}
+      onChange={this.props.onZipSearch}
       />
-      </form>
       </section>
     );
   }

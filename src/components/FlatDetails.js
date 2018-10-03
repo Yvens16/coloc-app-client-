@@ -1,4 +1,4 @@
-import React, { Componont } from "react";
+import React, { Component } from "react";
 
 class FlatDetails extends Component {
   constructor(props) {

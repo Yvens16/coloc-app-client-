@@ -2,13 +2,17 @@ import api from "./api";
 import React, { Component } from "react";
 import { Switch, Route, Redirect, Link } from "react-router-dom";
 import "./App.css";
+
+import 'font-awesome/css/font-awesome.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css'; 
+import 'mdbreact/dist/css/mdb.css';
+
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
 import Login from "./components/Login";
 import RoomList from "./components/RoomList";
 import Navigation from "./components/Navigation";
 import MyFlats from "./components/MyFlats";
-import MyRooms from "./components/MyRooms";
 
 //MDBootstrap
 import "font-awesome/css/font-awesome.min.css";
@@ -20,8 +24,12 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { currentUser: null };
+    this.state = { currentUser: null,
+      rooms: [],
+    };
   }
+
+ 
 
   updateUser(userDoc) {
     this.setState({ currentUser: userDoc });
