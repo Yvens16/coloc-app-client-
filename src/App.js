@@ -19,6 +19,8 @@ import "font-awesome/css/font-awesome.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
 import "mdbreact/dist/css/mdb.css";
 import AddFlats from "./components/AddFlats";
+import FlatDetails from "./components/FlatDetails";
+import FlatEdit from "./components/FlatEdit";
 
 class App extends Component {
   constructor(props) {
@@ -97,9 +99,14 @@ class App extends Component {
               />
             )}
           />
-          <Route path="/room-list" render={() => <RoomList currentUser={currentUser} /> }  />
+          <Route
+            path="/room-list"
+            render={() => <RoomList currentUser={currentUser} />}
+          />
           <Route path="/my-flats" component={MyFlats} />
           <Route path="/flats-add" component={AddFlats} />
+          <Route exact path="/flats/:flatId" component={FlatDetails} />
+          <Route exact path="/flats/:flatId/edit" component={FlatEdit} />
         </Switch>
       </main>
     );
