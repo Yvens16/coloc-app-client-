@@ -6,7 +6,7 @@ function Navigation(props) {
   const { currentUser } = props;
 
   return (
-    <Navbar brand="logo" right>
+    <Navbar brand="Logo" right>
       {!currentUser && (
         <span>
           <NavLink to="/signup">Sign Up</NavLink>

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function Home(props) {
   const { currentUser } = props;
   return (
-    <section>
+    <section className="home">
       <h2>Home Page</h2>
       <p>Welcome</p>
     </section>
