@@ -1,6 +1,6 @@
 import api from "./api";
 import React, { Component } from "react";
-import { Switch, Route, Redirect, Link } from "react-router-dom";
+import { Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 
 import 'font-awesome/css/font-awesome.min.css';
@@ -69,11 +69,10 @@ class App extends Component {
     return (
       <main>
         <header>
-          <h1>FlatSharing</h1>
           <Navigation currentUser={currentUser} />
           {currentUser && (
             <span>
-              <b>{currentUser.email}</b>
+              <b> Hello {currentUser.firstName} ! </b>
               <Link to="/">
                 <button onClick={() => this.logoutClick()}>Log Out</button>
               </Link>
