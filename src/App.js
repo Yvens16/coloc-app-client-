@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import RoomList from "./components/RoomList";
 import Navigation from "./components/Navigation";
 import MyFlats from "./components/MyFlats";
+import MyRooms from "./components/MyRooms";
 
 //MDBootstrap
 import "font-awesome/css/font-awesome.min.css";
@@ -89,8 +90,6 @@ class App extends Component {
             )}
           />
           <Route path="/room-list" render={() => <RoomList currentUser={currentUser} /> }  />
-          <Route path="/my-rooms" component={MyRooms} />
-          <Route path="/room-list" component={RoomList} />
           <Route path="/my-flats" component={MyFlats} />
           <Route path="/flats-add" component={AddFlats} />
         </Switch>

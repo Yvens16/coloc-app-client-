@@ -3,14 +3,22 @@ import Navigation from "./Navigation";
 import {Link} from 'react-router-dom';
 
 import api from '../api.js';
+import Search from "./Search";
 
 class RoomList extends Component {
   constructor (props){
     super(props);
     
     this.state={
-      rooms: []
+      rooms: [],
+      filterNum:''
     };
+  }
+
+  filterUpdate(value){
+    this.setState({
+      filterNum:value
+    })
   }
 
   componentDidMount() {
@@ -29,14 +37,15 @@ class RoomList extends Component {
   render() {
     const {rooms} = this.state;
     const {currentUser}= this.props;
-    console.log("currentUser", currentUser);
 
     return (
       <section>
+      <Search
+      filterNum={this.state.filterNum}
+      filterUpdate={this.filterUpdate.bind(this)}
+      />
         <h2>Room list</h2>
-        <section>
-        <input type="search" />
-      </section>
+       
 
         <ul>
           {
