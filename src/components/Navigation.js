@@ -21,6 +21,8 @@ function Navigation(props) {
           </NavLink>
           <br />
           <NavLink to="/room-list">Room list</NavLink>
+          <br />
+          <NavLink to="/my-flats">Flat list</NavLink>
         </span>
       )}
     </nav>

@@ -37,6 +37,10 @@ class MyFlats extends Component {
               PARIS {oneFlat.zipCode} | {oneFlat.roomMate} autres personnes
             </p>
             <p>{oneFlat.description}</p>
+            <p>
+              <b>{oneFlat.rent} €</b>
+            </p>
+            <Link to={`/flats/${oneFlat._id}`}>See details</Link>
           </div>
         ))}
         <Link to="/flats-add">Add a Flat</Link>
