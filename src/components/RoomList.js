@@ -31,8 +31,6 @@ class RoomList extends Component {
       console.log(err);
       alert("Something went wrong!");
     })
-    
-    
   }
   
   updateZipCode(event){
@@ -46,10 +44,22 @@ class RoomList extends Component {
       console.log( zipResult )
       this.setState({ rooms: zipResult, userInput: inputTag.value })
   }
+
+  handleLike(oneRoom){
+    api.post(`/likes/${oneRoom.owner}`, {})
+    .then(response =>
+      console.log("[RESPONSE]", response.data)
+    ) 
+    .catch( err =>{
+      console.log('[err]', err);
+
+    })
+  }
    
   render() {
     const {rooms, userInput} = this.state;
     const {currentUser}= this.props;
+   
 
     return (
       <section>
@@ -75,7 +85,7 @@ class RoomList extends Component {
              )
              }*/}
               {currentUser && (
-                <button>Room details </button>
+                <button onClick= {(() => this.handleLike(oneRoom))}>like </button>
               )}
              </li>
 
