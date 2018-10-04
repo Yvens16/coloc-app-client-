@@ -1,15 +1,15 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
+import { Navbar } from "react-materialize";
 
 function Navigation(props) {
   const { currentUser } = props;
 
   return (
-    <nav>
+    <Navbar brand="Logo" right>
       {!currentUser && (
         <span>
           <NavLink to="/signup">Sign Up</NavLink>
-          <br />
           <NavLink to="/login">Log In</NavLink>
         </span>
       )}
@@ -31,8 +31,15 @@ function Navigation(props) {
           </Link>
         </span>
       )}
-    </nav>
+    </Navbar>
   );
 }
 
 export default Navigation;
+
+// <Navbar brand='logo' right>
+//   <NavItem href='get-started.html'><Icon>search</Icon></NavItem>
+//   <NavItem href='get-started.html'><Icon>view_module</Icon></NavItem>
+//   <NavItem href='get-started.html'><Icon>refresh</Icon></NavItem>
+//   <NavItem href='get-started.html'><Icon>more_vert</Icon></NavItem>
+// </Navbar>
