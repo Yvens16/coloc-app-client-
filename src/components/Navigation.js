@@ -1,34 +1,31 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
-import { Navbar } from "react-materialize";
+import { Navbar, NavItem } from "react-materialize";
 
 function Navigation(props) {
   const { currentUser } = props;
 
   return (
     <Navbar brand="Logo" right>
-      {!currentUser && (
-        <span>
-          <NavLink to="/signup">Sign Up</NavLink>
-          <NavLink to="/login">Log In</NavLink>
-        </span>
-      )}
-
       {currentUser && (
         <span>
+        <NavItem>
           <NavLink exact to="/">
             Home
           </NavLink>
-          <br />
+          </NavItem>
+          <NavItem>
           <NavLink to="/room-list">Room list</NavLink>
-          <br />
+          </NavItem>
+
+          <NavItem>
           <NavLink to="/my-flats">Flat list</NavLink>
-          <br />
+          </NavItem>
           <b> Welcome, {currentUser.firstName}!</b>
-          <br />
-          <Link to="/">
-            <button onClick={() => props.onLogout()}>Log Out</button>
-          </Link>
+          <NavItem>
+            <NavLink to="/" onClick={() => props.onLogout()}>Log Out</NavLink>
+          </NavItem>
+
         </span>
       )}
     </Navbar>

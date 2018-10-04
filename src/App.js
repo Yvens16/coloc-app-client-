@@ -1,6 +1,6 @@
 import api from "./api";
 import React, { Component } from "react";
-import { Switch, Route, Link } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import "./App.css";
 
 import "font-awesome/css/font-awesome.min.css";
@@ -70,7 +70,6 @@ class App extends Component {
     return (
       <main>
         <header>
-          <h1>FlatSharing</h1>
           <Navigation
             currentUser={currentUser}
             onLogout={() => this.logoutClick()}
