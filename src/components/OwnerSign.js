@@ -62,7 +62,7 @@ const OwnerSign = props => {
       </label>
       <label>
         Flat-Mates present:
-        <select
+        <Input s={6} type='select' label="Materialize Select" defaultValue='2'
           value={roomMate}
           name="roomMate"
           onChange={event => updateInput(event)}
@@ -77,13 +77,12 @@ const OwnerSign = props => {
           <option>8</option>
           <option>9</option>
           <option>10+</option>
-        </select>
+        </Input>
         (1 to 10+)
       </label>
 
       <label>
         Housing:{" "}
-        <Row>
        <Input s={6} type='select' label="Materialize Select" defaultValue='2'
         value={housing}
           name="housing"
@@ -96,12 +95,11 @@ const OwnerSign = props => {
           <option value="House">House</option>
           <option value="Boat">Boat</option>
           </Input>
-          </Row>
       </label>
 
       <label>
         Nb of rooms:
-        <select
+        <Input s={6} type='select' label="Materialize Select" defaultValue='2'
           value={roomNum}
           name="roomNum"
           onChange={event => updateInput(event)}
@@ -116,7 +114,7 @@ const OwnerSign = props => {
           <option>8</option>
           <option>9</option>
           <option>10+</option>
-        </select>
+        </Input>
         (1 to 10+)
       </label>
 

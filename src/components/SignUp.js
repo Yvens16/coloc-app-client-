@@ -220,19 +220,19 @@ class SignUp extends Component {
           <br />
           <label>
             Sexe:
-            <select
+            <Input s={6} type='select' label="Materialize Select" defaultValue='2'
               value={sexe}
               onChange={event => this.updateInput(event)}
               name="sexe"
             >
               <option value="Male">Male</option>
               <option value="Female">Female</option>
-            </select>
+            </Input>
           </label>
           <br />
           <label>
             Job:{" "}
-            <select
+            <Input s={6} type='select' label="Materialize Select" defaultValue='2'
               value={job}
               onChange={event => this.updateInput(event)}
               name="job"
@@ -242,7 +242,7 @@ class SignUp extends Component {
               <option>Student</option>
               <option>Retired</option>
               <option>Other</option>
-            </select>
+            </Input>
           </label>
           <br />
           <label>
