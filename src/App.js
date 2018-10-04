@@ -61,15 +61,10 @@ class App extends Component {
       <main>
         <header>
           <h1>FlatSharing</h1>
-          <Navigation currentUser={currentUser} />
-          {currentUser && (
-            <span>
-              <b>{currentUser.email}</b>
-              <Link to="/">
-                <button onClick={() => this.logoutClick()}>Log Out</button>
-              </Link>
-            </span>
-          )}
+          <Navigation
+            currentUser={currentUser}
+            onLogout={() => this.logoutClick()}
+          />
         </header>
         <Switch>
           <Route exact path="/" component={Home} />

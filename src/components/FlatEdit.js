@@ -61,6 +61,35 @@ class FlatEdit extends Component {
       });
   }
 
+  multipleUpload = event => {
+    // Intial FormData
+    const formData = new FormData();
+    //Push all the axios request promise into a single array
+    //console.log("[FILE LIST]", event.target.files);
+
+    const uploaders = Array.from(event.target.files).forEach(oneFile => {
+      formData.append("oneFile", oneFile);
+    });
+
+    console.log("[FORMDATA]", formData);
+
+    api
+      .post("/upload-image", formData)
+      .then(response => {
+        console.log("[FILE UPLOADED]", response.data);
+        const dataArray = response.data;
+        const picsArray = [];
+        dataArray.forEach(oneImage => {
+          return picsArray.push(oneImage.imageUrl);
+        });
+        this.setState({ picture: picsArray });
+      })
+      .catch(err => {
+        console.log(err);
+        alert("error");
+      });
+  };
+
   render() {
     const {
       housing,
@@ -214,7 +243,7 @@ class FlatEdit extends Component {
               Picture:{" "}
               <input
                 type="file"
-                // onChange={event => this.multipleUpload(event)}
+                onChange={event => this.multipleUpload(event)}
                 multiple
                 name="picture"
               />

@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import api from "../api";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class FlatDetails extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       _id: "",
       housing: "",
@@ -17,7 +16,8 @@ class FlatDetails extends Component {
       roomNum: "",
       area: "",
       description: "",
-      picture: []
+      picture: [],
+      deleteSuccess: false
     };
   }
 
@@ -37,6 +37,21 @@ class FlatDetails extends Component {
       });
   }
 
+  deleteClick() {
+    const { params } = this.props.match;
+    const { deleteSuccess } = this.state;
+
+    api
+      .delete(`/flats/${params.flatId}`)
+      .then(() => {
+        this.setState({ deleteSuccess: true });
+      })
+      .catch(err => {
+        console.log(err);
+        alert("Sorry! There was an error");
+      });
+  }
+
   render() {
     const {
       _id,
@@ -49,12 +64,22 @@ class FlatDetails extends Component {
       roomNum,
       area,
       description,
-      picture
+      picture,
+      deleteSuccess
     } = this.state;
+
+    console.log("delete success : ", deleteSuccess);
+    if (deleteSuccess) {
+      return <Redirect to={`/my-flats`} />;
+    }
 
     return (
       <section>
         <h2>Flat details</h2>
+        {picture.map((onePic, index) => {
+          return <img key={index} className="avatar-preview" src={onePic} />;
+        })}
+
         <h3>
           {housing} {roomNum} pièces de {area}
         </h3>
@@ -71,6 +96,8 @@ class FlatDetails extends Component {
         ))}
 
         <Link to={`/flats/${_id}/edit`}>Edit this Flat</Link>
+        <br />
+        <button onClick={() => this.deleteClick()}>Delete this flat</button>
       </section>
     );
   }
