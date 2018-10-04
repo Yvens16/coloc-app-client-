@@ -100,14 +100,12 @@ class App extends Component {
             path="/room-list"
             render={() => <RoomList currentUser={currentUser} />}
           />
-          <Route path="/my-flats" component={MyFlats} />
-          <Route path="/flats-add" component={AddFlats} />
           <Route
-            exact
-            path="/flats/:flatId"
-            currentUser={currentUser}
-            component={FlatDetails}
+            path="/my-flats"
+            render={() => <MyFlats currentUser={currentUser.role} />}
           />
+          <Route path="/flats-add" component={AddFlats} />
+          <Route exact path="/flats/:flatId" component={FlatDetails} />
           <Route exact path="/flats/:flatId/edit" component={FlatEdit} />
           <Route path="/profile/:profileId" component={ProfileEdit} />
           <Route path="/room-details/:roomId" component={RoomDetails} />

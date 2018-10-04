@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import api from "../api";
 import { Link } from "react-router-dom";
+import Redirect from "react-router-dom/Redirect";
 
 class MyFlats extends Component {
   constructor(props) {
@@ -23,7 +24,14 @@ class MyFlats extends Component {
 
   render() {
     const { userFlat } = this.state;
-    console.log("userFlat", userFlat);
+    const { currentUser } = this.props;
+
+    if (currentUser) {
+      if (currentUser.role === "normal") {
+        <Redirect to="/" />;
+      }
+    }
+
     return (
       <section>
         <h2>My flats</h2>
@@ -45,6 +53,7 @@ class MyFlats extends Component {
           </div>
         ))}
         <Link to="/flats-add">Add a Flat</Link>
+        {}
       </section>
     );
   }

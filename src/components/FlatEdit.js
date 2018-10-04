@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import api from "../api";
-import { Redirect } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 class FlatEdit extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      _id: "",
       housing: "",
       streetNum: "",
       address: "",
@@ -17,6 +18,7 @@ class FlatEdit extends Component {
       area: "",
       description: "",
       picture: [],
+      owner: "",
       isSubmitSuccess: false
     };
   }
@@ -92,6 +94,7 @@ class FlatEdit extends Component {
 
   render() {
     const {
+      _id,
       housing,
       streetNum,
       address,
@@ -102,9 +105,10 @@ class FlatEdit extends Component {
       area,
       description,
       picture,
-      isSubmitSuccess
+      isSubmitSuccess,
+      owner
     } = this.state;
-
+    console.log("OWNER:  ", owner);
     // Redirect when submit is success
     if (isSubmitSuccess) {
       // redirect back to the phone details page if the submission worked!
@@ -253,6 +257,7 @@ class FlatEdit extends Component {
             ))}
 
             <button>Saves changes</button>
+            <Link to={`/flats/${_id}`}>Cancel</Link>
           </form>
         </div>
       </section>

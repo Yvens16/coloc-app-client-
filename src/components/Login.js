@@ -31,6 +31,7 @@ class Login extends Component {
 
   render() {
     const { currentUser } = this.props;
+    console.log("current USER ", currentUser);
     const { email, originalPassword } = this.state;
 
     if (currentUser && currentUser.role === "normal") {

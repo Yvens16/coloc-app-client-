@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import api from "../api";
+import { Link } from "react-router-dom";
 
 class WhosLike extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      _id: "",
       firstName: "",
       lastName: "",
       age: "",
@@ -17,7 +17,8 @@ class WhosLike extends Component {
       budget: "",
       email: "",
       phone: "",
-      likes: []
+      likes: [],
+      idOwner: ""
     };
   }
 
@@ -28,7 +29,7 @@ class WhosLike extends Component {
       .get(`/my-likes/${params.ownerId}`)
       .then(response => {
         console.log("response:  ", response.data);
-        this.setState({ likes: response.data.likes });
+        this.setState({ likes: response.data.likes, idOwner: response._id });
       })
       .catch(err => {
         console.log(err);
@@ -47,7 +48,8 @@ class WhosLike extends Component {
       budget,
       email,
       phone,
-      likes
+      likes,
+      idOwner
     } = this.state;
 
     return (
@@ -71,6 +73,8 @@ class WhosLike extends Component {
             </p>
           </div>
         ))}
+
+        {/* <Link to={`/flats/${}`}>Back to details</Link> */}
       </section>
     );
   }

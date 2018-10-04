@@ -20,10 +20,6 @@ function Navigation(props) {
             Home
           </NavLink>
           <br />
-          <NavLink to="/room-list">Room list</NavLink>
-          <br />
-          <NavLink to="/my-flats">Flat list</NavLink>
-          <br />
           <b> Welcome, {currentUser.firstName}!</b>
           <br />
           <Link to="/">
@@ -31,6 +27,9 @@ function Navigation(props) {
           </Link>
         </span>
       )}
+      <NavLink to="/room-list">Room list</NavLink>
+
+      <NavLink to="/my-flats">Flat list</NavLink>
     </Navbar>
   );
 }
