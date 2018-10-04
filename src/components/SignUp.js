@@ -182,7 +182,7 @@ class SignUp extends Component {
 
 
     return (
-      <section>
+      <section className="Sign">
         <h2>Sign Up</h2>
         <form onSubmit={event => this.handleSubmit(event)}>
           <label>

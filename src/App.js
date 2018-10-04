@@ -13,6 +13,7 @@ import Login from "./components/Login";
 import RoomList from "./components/RoomList";
 import Navigation from "./components/Navigation";
 import MyFlats from "./components/MyFlats";
+import RoomDetails from "./components/RoomDetails";
 
 //MDBootstrap
 import "font-awesome/css/font-awesome.min.css";
@@ -108,6 +109,7 @@ class App extends Component {
           <Route exact path="/flats/:flatId" component={FlatDetails} />
           <Route exact path="/flats/:flatId/edit" component={FlatEdit} />
           <Route path="/profile/:profileId" component={ProfileEdit} />
+          <Route path="/room-details/:roomId" component={RoomDetails} />
         </Switch>
       </main>
     );

@@ -1,4 +1,5 @@
 import React from "react";
+import {Input, Row} from 'react-materialize';
 
 const OwnerSign = props => {
   const {
@@ -82,8 +83,9 @@ const OwnerSign = props => {
 
       <label>
         Housing:{" "}
-        <select
-          value={housing}
+        <Row>
+       <Input s={6} type='select' label="Materialize Select" defaultValue='2'
+        value={housing}
           name="housing"
           onChange={event => updateInput(event)}
         >
@@ -93,7 +95,8 @@ const OwnerSign = props => {
           <option value="Loft">Loft</option>
           <option value="House">House</option>
           <option value="Boat">Boat</option>
-        </select>
+          </Input>
+          </Row>
       </label>
 
       <label>
