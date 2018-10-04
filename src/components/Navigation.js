@@ -1,6 +1,6 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
-import { Navbar } from 'react-materialize';
+import { NavLink, Link } from "react-router-dom";
+import { Navbar } from "react-materialize";
 
 function Navigation(props) {
   const { currentUser } = props;
@@ -16,9 +16,19 @@ function Navigation(props) {
 
       {currentUser && (
         <span>
-          <NavLink exact to="/">Home</NavLink>
-          <NavLink to="/room-list">Room List</NavLink>
-          <NavLink to="/my-flats">Flat List</NavLink>
+          <NavLink exact to="/">
+            Home
+          </NavLink>
+          <br />
+          <NavLink to="/room-list">Room list</NavLink>
+          <br />
+          <NavLink to="/my-flats">Flat list</NavLink>
+          <br />
+          <b> Welcome, {currentUser.firstName}!</b>
+          <br />
+          <Link to="/">
+            <button onClick={() => props.onLogout()}>Log Out</button>
+          </Link>
         </span>
       )}
     </Navbar>

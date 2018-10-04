@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import api from "../api";
+import Redirect from "react-router-dom/Redirect";
 
 class AddFlats extends Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class AddFlats extends Component {
       roomNum: "1",
       area: "",
       description: "",
-      picture: []
+      picture: [],
+      submitSuccess: false
     };
   }
 
@@ -29,7 +31,10 @@ class AddFlats extends Component {
     event.preventDefault();
     api
       .post("/flats", this.state)
-      .then(flatDoc => console.log("Flat created", flatDoc))
+      .then(flatDoc => {
+        console.log("Flat created", flatDoc);
+        this.setState({ submitSuccess: true });
+      })
       .catch(err => {
         console.log(err);
         alert("Sorry! There was a problem.");
@@ -76,8 +81,14 @@ class AddFlats extends Component {
       roomNum,
       area,
       description,
-      picture
+      picture,
+      submitSuccess
     } = this.state;
+    console.log("submitsucces? ", submitSuccess);
+
+    if (submitSuccess) {
+      return <Redirect to="/my-flats" />;
+    }
 
     return (
       <section>

@@ -3,9 +3,9 @@ import React, { Component } from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import "./App.css";
 
-import 'font-awesome/css/font-awesome.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css'; 
-import 'mdbreact/dist/css/mdb.css';
+import "font-awesome/css/font-awesome.min.css";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
 
 import Home from "./components/Home";
 import SignUp from "./components/SignUp";
@@ -23,17 +23,17 @@ import AddFlats from "./components/AddFlats";
 import FlatDetails from "./components/FlatDetails";
 import FlatEdit from "./components/FlatEdit";
 import ProfileEdit from "./components/ProfileEdit";
+import WhosLike from "./components/WhosLike";
 
 class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { currentUser: null,
-      rooms: [],
+    this.state = {
+      currentUser: null,
+      rooms: []
     };
   }
-
- 
 
   updateUser(userDoc) {
     this.setState({ currentUser: userDoc });
@@ -70,15 +70,11 @@ class App extends Component {
     return (
       <main>
         <header>
-          <Navigation currentUser={currentUser} />
-          {currentUser && (
-            <span>
-              <b> Hello {currentUser.firstName} ! </b>
-              <Link to="/">
-                <button onClick={() => this.logoutClick()}>Log Out</button>
-              </Link>
-            </span>
-          )}
+          <h1>FlatSharing</h1>
+          <Navigation
+            currentUser={currentUser}
+            onLogout={() => this.logoutClick()}
+          />
         </header>
         <Switch>
           <Route exact path="/" component={Home} />
@@ -106,10 +102,16 @@ class App extends Component {
           />
           <Route path="/my-flats" component={MyFlats} />
           <Route path="/flats-add" component={AddFlats} />
-          <Route exact path="/flats/:flatId" component={FlatDetails} />
+          <Route
+            exact
+            path="/flats/:flatId"
+            currentUser={currentUser}
+            component={FlatDetails}
+          />
           <Route exact path="/flats/:flatId/edit" component={FlatEdit} />
           <Route path="/profile/:profileId" component={ProfileEdit} />
           <Route path="/room-details/:roomId" component={RoomDetails} />
+          <Route path="/whoslike/:ownerId" component={WhosLike} />
         </Switch>
       </main>
     );

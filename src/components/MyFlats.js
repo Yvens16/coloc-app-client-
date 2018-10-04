@@ -29,6 +29,7 @@ class MyFlats extends Component {
         <h2>My flats</h2>
         {userFlat.map(oneFlat => (
           <div key={oneFlat._id}>
+            <img className="avatar-preview" src={oneFlat.picture[0]} />
             <h3>
               {oneFlat.housing} {oneFlat.roomNum} pièces de {oneFlat.area}
               m²

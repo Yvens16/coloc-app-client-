@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import api from "../api";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import { number } from "prop-types";
 
 class FlatDetails extends Component {
   constructor(props) {
     super(props);
-
     this.state = {
       _id: "",
       housing: "",
@@ -17,12 +17,18 @@ class FlatDetails extends Component {
       roomNum: "",
       area: "",
       description: "",
-      picture: []
+      picture: [],
+      owner: "",
+      numLikes: "",
+      deleteSuccess: false
     };
   }
 
   componentDidMount() {
     const { params } = this.props.match;
+    const { owner } = this.state;
+
+    console.log("params:  ", params);
 
     api
       .get(`/flats/${params.flatId}`)
@@ -34,6 +40,35 @@ class FlatDetails extends Component {
       .catch(err => {
         console.log(err);
         alert("Sorry! Error with flat details");
+      });
+  }
+
+  componentDidUpdate() {
+    const { owner } = this.state;
+
+    if (!this.state.numLikes) {
+      api
+        .get(`/my-likes/${owner}`)
+        .then(response => {
+          console.log(response.data.likes);
+          this.setState({ numLikes: response.data.likes.length });
+        })
+        .catch(err => console.log(err));
+    }
+  }
+
+  deleteClick() {
+    const { params } = this.props.match;
+    const { deleteSuccess } = this.state;
+
+    api
+      .delete(`/flats/${params.flatId}`)
+      .then(() => {
+        this.setState({ deleteSuccess: true });
+      })
+      .catch(err => {
+        console.log(err);
+        alert("Sorry! There was an error");
       });
   }
 
@@ -49,12 +84,24 @@ class FlatDetails extends Component {
       roomNum,
       area,
       description,
-      picture
+      picture,
+      deleteSuccess,
+      owner,
+      numLikes
     } = this.state;
+
+    console.log("delete success : ", deleteSuccess);
+    if (deleteSuccess) {
+      return <Redirect to={`/my-flats`} />;
+    }
 
     return (
       <section>
         <h2>Flat details</h2>
+        {picture.map((onePic, index) => {
+          return <img key={index} className="avatar-preview" src={onePic} />;
+        })}
+
         <h3>
           {housing} {roomNum} pièces de {area}
         </h3>
@@ -69,8 +116,13 @@ class FlatDetails extends Component {
         {picture.map((onePic, index) => (
           <img key={index} src={onePic.picture} />
         ))}
-
+        <Link to={`/whoslike/${owner}`}>
+          {numLikes && <button>{numLikes} Likes</button>}
+        </Link>
+        <br />
         <Link to={`/flats/${_id}/edit`}>Edit this Flat</Link>
+        <br />
+        <button onClick={() => this.deleteClick()}>Delete this flat</button>
       </section>
     );
   }
