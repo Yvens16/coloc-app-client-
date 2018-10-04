@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import Navigation from "./Navigation";
 import { Link } from "react-router-dom";
-import { Card, CardTitle } from 'react-materialize';
+import { Card, CardTitle } from "react-materialize";
 
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
@@ -71,21 +70,35 @@ class RoomList extends Component {
 
         {rooms.map(oneRoom => (
           <li key={oneRoom._id}>
-          <Card className='medium' header={<CardTitle image={oneRoom.picture[0]}>
-          A {oneRoom.roomNum} rooms {oneRoom.housing} of {oneRoom.area} m2
-          </CardTitle>}
-          actions={[<Link to={{pathname: `/room-details/${oneRoom._id}`, state: {oneRoom : 'oneRoom'}}} >Rooms details</Link>]}>
-
-            <b>
-              {oneRoom.zipCode} | {oneRoom.roomMate} other room-mates
-            </b>
-            <h1>
-              <b> {oneRoom.rent}€ </b>
-            </h1>
-            {currentUser && (
-              <button onClick={() => this.handleLike(oneRoom)}>like </button>
-            )}
-            <p> {oneRoom.description} </p>
+            <Card
+              className="medium"
+              header={
+                <CardTitle image={oneRoom.picture[0]}>
+                  A {oneRoom.roomNum} rooms {oneRoom.housing} of {oneRoom.area}{" "}
+                  m2
+                </CardTitle>
+              }
+              actions={[
+                <Link
+                  to={{
+                    pathname: `/room-details/${oneRoom._id}`,
+                    state: { oneRoom: "oneRoom" }
+                  }}
+                >
+                  Rooms details
+                </Link>
+              ]}
+            >
+              <b>
+                {oneRoom.zipCode} | {oneRoom.roomMate} other room-mates
+              </b>
+              <h1>
+                <b> {oneRoom.rent}€ </b>
+              </h1>
+              {currentUser && (
+                <button onClick={() => this.handleLike(oneRoom)}>like </button>
+              )}
+              <p> {oneRoom.description} </p>
             </Card>
           </li>
         ))}

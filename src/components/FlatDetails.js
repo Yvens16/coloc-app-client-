@@ -123,6 +123,8 @@ class FlatDetails extends Component {
         <Link to={`/flats/${_id}/edit`}>Edit this Flat</Link>
         <br />
         <button onClick={() => this.deleteClick()}>Delete this flat</button>
+        <br />
+        <Link to="/my-flats">Back to my list</Link>
       </section>
     );
   }

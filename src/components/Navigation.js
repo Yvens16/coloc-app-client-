@@ -9,23 +9,25 @@ function Navigation(props) {
     <Navbar brand="Logo" right>
       {currentUser && (
         <span>
-        <NavItem>
-          <NavLink exact to="/">
-            Home
-          </NavLink>
+          <NavItem>
+            <NavLink exact to="/">
+              Home
+            </NavLink>
+            <br />
           </NavItem>
           <NavItem>
-          <NavLink to="/room-list">Room list</NavLink>
+            <NavLink to="/room-list">Room list</NavLink>
           </NavItem>
 
           <NavItem>
-          <NavLink to="/my-flats">Flat list</NavLink>
+            <NavLink to="/my-flats">Flat list</NavLink>
           </NavItem>
           <b> Welcome, {currentUser.firstName}!</b>
           <NavItem>
-            <NavLink to="/" onClick={() => props.onLogout()}>Log Out</NavLink>
+            <NavLink to="/" onClick={() => props.onLogout()}>
+              Log Out
+            </NavLink>
           </NavItem>
-
         </span>
       )}
     </Navbar>
