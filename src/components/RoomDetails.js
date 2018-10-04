@@ -79,9 +79,7 @@ class RoomDetails extends  React.Component{
         <img key={index} src={onePic.picture} />
       })}
 
-      <button onClick={() => this.likeHandler(owner)}>THis LIKE </button>
-
-      <Link to="/room-list"> Like </Link>
+      <button onClick={() => this.likeHandler(owner)}> LIKE </button>
       <p> {description} {area} </p>
 
 
