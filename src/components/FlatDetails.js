@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import api from "../api";
 import { Link, Redirect } from "react-router-dom";
+import { number } from "prop-types";
 
 class FlatDetails extends Component {
   constructor(props) {
@@ -17,12 +18,17 @@ class FlatDetails extends Component {
       area: "",
       description: "",
       picture: [],
+      owner: "",
+      numLikes: "",
       deleteSuccess: false
     };
   }
 
   componentDidMount() {
     const { params } = this.props.match;
+    const { owner } = this.state;
+
+    console.log("params:  ", params);
 
     api
       .get(`/flats/${params.flatId}`)
@@ -35,6 +41,20 @@ class FlatDetails extends Component {
         console.log(err);
         alert("Sorry! Error with flat details");
       });
+  }
+
+  componentDidUpdate() {
+    const { owner } = this.state;
+
+    if (!this.state.numLikes) {
+      api
+        .get(`/my-likes/${owner}`)
+        .then(response => {
+          console.log(response.data.likes);
+          this.setState({ numLikes: response.data.likes.length });
+        })
+        .catch(err => console.log(err));
+    }
   }
 
   deleteClick() {
@@ -65,7 +85,9 @@ class FlatDetails extends Component {
       area,
       description,
       picture,
-      deleteSuccess
+      deleteSuccess,
+      owner,
+      numLikes
     } = this.state;
 
     console.log("delete success : ", deleteSuccess);
@@ -94,7 +116,10 @@ class FlatDetails extends Component {
         {picture.map((onePic, index) => (
           <img key={index} src={onePic.picture} />
         ))}
-
+        <Link to={`/whoslike/${owner}`}>
+          {numLikes && <button>{numLikes} Likes</button>}
+        </Link>
+        <br />
         <Link to={`/flats/${_id}/edit`}>Edit this Flat</Link>
         <br />
         <button onClick={() => this.deleteClick()}>Delete this flat</button>

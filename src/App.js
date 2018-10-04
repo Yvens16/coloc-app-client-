@@ -22,6 +22,7 @@ import AddFlats from "./components/AddFlats";
 import FlatDetails from "./components/FlatDetails";
 import FlatEdit from "./components/FlatEdit";
 import ProfileEdit from "./components/ProfileEdit";
+import WhosLike from "./components/WhosLike";
 
 class App extends Component {
   constructor(props) {
@@ -100,9 +101,15 @@ class App extends Component {
           />
           <Route path="/my-flats" component={MyFlats} />
           <Route path="/flats-add" component={AddFlats} />
-          <Route exact path="/flats/:flatId" component={FlatDetails} />
+          <Route
+            exact
+            path="/flats/:flatId"
+            currentUser={currentUser}
+            component={FlatDetails}
+          />
           <Route exact path="/flats/:flatId/edit" component={FlatEdit} />
           <Route path="/profile/:profileId" component={ProfileEdit} />
+          <Route path="/whoslike/:ownerId" component={WhosLike} />
         </Switch>
       </main>
     );
