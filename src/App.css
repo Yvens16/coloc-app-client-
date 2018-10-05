@@ -17,12 +17,6 @@
 background-color: rgba(60, 99, 130,1.0);
 }
 
-#home-title{
-  color: white;
-  display:flex;
-  justify-content: center;
-}
-
 .button-div{
   margin-top:15%;
   margin-left:40%;
@@ -32,11 +26,14 @@ background-color: rgba(60, 99, 130,1.0);
 }
 
 .btn{
-  background-color:rgba(60, 99, 130,1.0);
+  background-color:#3c6382;
   border-radius:30px;
+  display:inline-block;
 }
 .btn:hover{
   transform: skewX(5deg) skewY(-5deg) ;
+  background-color:#fff;
+  color:rgba(60, 99, 130,1.0);
 }
 
 #home-p{
@@ -48,16 +45,68 @@ background-color: rgba(60, 99, 130,1.0);
 .card{
   margin: auto;
   width: 50%;
-  border: 3px solid rgba(60, 99, 130,1.0) ;
+  /* border: 3px solid rgba(60, 99, 130,1.0) ; */
   padding: 10px;
+}
 
+body{
+  background-color: rgba(60, 99, 130,0.05);
 }
 
 .Button{
  color: rgba(60, 99, 130,1.0);
+
 }
 
+.color{
+ color: white;
+}
 .img{
   width:600px;
   height: 380px;
+}
+
+@media screen and (min-width:640px){
+  .carousel .carousel-item img{
+    margin-top: -200px;
+  }
+}
+
+.wrapper{
+  text-align: center;
+}
+
+.center{
+  display: inline-block;
+}
+
+.btn1{
+  background-color:#3c6382;
+  border-radius:30px;
+  display:inline-block;
+  text-decoration: none;
+  color:white;
+  width: 61px;
+  height: 30px;
+  padding-left: 8px;
+  padding-top: 4px;
+}
+
+.btn1:hover{
+  transform: skewX(5deg) skewY(-5deg) ;
+  background-color:#d6cfcf;
+  color:rgba(60, 99, 130,1.0);
+}
+
+.active-purple-3 input[type=text] {
+  border: 1px solid rgba(60, 99, 130,1.0);
+  box-shadow: 0 0 0 1px rgba(60, 99, 130,1.0);
+}
+
+.search{
+  margin-top: 30px;
+}
+
+.details{
+  margin-bottom: 50px;
 }

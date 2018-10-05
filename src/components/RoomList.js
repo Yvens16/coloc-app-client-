@@ -62,12 +62,16 @@ class RoomList extends Component {
     const { currentUser } = this.props;
 
     return (
-      <section>
+      <section className="background">
         <Search
           inputValue={userInput}
           onZipSearch={event => this.updateZipCode(event)}
         />
-        <h2>Room list</h2>
+        <div className="wrapper">
+        <div className="center">
+        <h2 className="room-list">Room list</h2>
+        </div>
+        </div>
 
         {rooms.map(oneRoom => (
           <li key={oneRoom._id}>
@@ -81,15 +85,12 @@ class RoomList extends Component {
               {oneRoom.rent}€
               </CardTitle>
               <CardText>{oneRoom.description}</CardText>
-               <Link className='Button'
+               <Link className="btn1"  
               to={{
                 pathname: `/room-details/${oneRoom._id}`,
                 state: { oneRoom: "oneRoom" }
               }}
-            > <Button  className="center"> Rooms details </Button></Link>
-            {currentUser && (
-              <Button onClick={() => this.handleLike(oneRoom)}>like </Button>
-            )}
+            > Details </Link>
           </CardBody>
       </Card>
       
