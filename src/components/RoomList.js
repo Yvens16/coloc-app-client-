@@ -74,10 +74,7 @@ class RoomList extends Component {
         </div>
 
         {rooms.map(oneRoom => (
-          <li key={oneRoom._id}>
-
-          
-          <Card reverse className="card">
+          <Card reverse className="card" key={oneRoom._id} >
           <CardImage cascade className="img-fluid" className="img" src={oneRoom.picture[0]} />
           <CardBody cascade>
               <CardTitle>A {oneRoom.roomNum} rooms {oneRoom.housing} of {oneRoom.area} m2
@@ -93,8 +90,6 @@ class RoomList extends Component {
             > Details </Link>
           </CardBody>
       </Card>
-      
-          </li>
         ))}
       </section>
     );

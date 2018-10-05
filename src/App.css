@@ -47,6 +47,7 @@ background-color: rgba(60, 99, 130,1.0);
   width: 50%;
   /* border: 3px solid rgba(60, 99, 130,1.0) ; */
   padding: 10px;
+  margin-bottom:20px;
 }
 
 body{
@@ -70,6 +71,11 @@ body{
   .carousel .carousel-item img{
     margin-top: -200px;
   }
+  .carousel .carousel-item #image{
+    margin-top:50px;
+    
+  }
+
 }
 
 .wrapper{
@@ -109,4 +115,10 @@ body{
 
 .details{
   margin-bottom: 50px;
+}
+
+#search-input{
+  width: 70%;
+    margin-left: auto;
+    margin-right: auto;
 }
