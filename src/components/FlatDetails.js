@@ -2,6 +2,24 @@ import React, { Component } from "react";
 import api from "../api";
 import { Link, Redirect } from "react-router-dom";
 import { number } from "prop-types";
+import {
+  Button,
+  Card,
+  CardBody,
+  CardImage,
+  CardTitle,
+  CardText,
+  CardGroup
+} from "mdbreact";
+import {
+  Carousel,
+  CarouselCaption,
+  CarouselInner,
+  CarouselItem,
+  View,
+  Mask,
+  Container
+} from "mdbreact";
 
 class FlatDetails extends Component {
   constructor(props) {
@@ -97,17 +115,67 @@ class FlatDetails extends Component {
 
     return (
       <section>
-        <h2>Flat details</h2>
-        {picture.map((onePic, index) => {
-          return <img key={index} className="avatar-preview" src={onePic} />;
-        })}
+        <Card reverse>
+          <Container>
+            <h4 className="mt-5 mb-2">FLAT DETAILS</h4>
+            <Carousel
+              activeItem={1}
+              length={4}
+              showControls={true}
+              showIndicators={false}
+              className="z-depth-1"
+            >
+              <CarouselInner>
+                {picture.map((onePic, index) => {
+                  return (
+                    <CarouselItem key={index} itemId={index + 1}>
+                      <View>
+                        <img
+                          className="d-block w-100"
+                          src={onePic}
+                          alt="Third slide"
+                        />
+                        <Mask overlay="black-slight" />
+                      </View>
+                      <CarouselCaption>
+                        <h3 className="h3-responsive">PARIS {zipCode}</h3>
+                        <p>
+                          <b>{rent} €</b>
+                        </p>
+                      </CarouselCaption>
+                    </CarouselItem>
+                  );
+                })}
+              </CarouselInner>
+            </Carousel>
+          </Container>
 
-        <h3>
+          <CardBody cascade>
+            <CardTitle>
+              A {roomNum} room {housing} of {area} m²
+            </CardTitle>
+            <CardText>{description}</CardText>
+            <CardText>Address : {address}</CardText>
+            <CardText>{roomMate} other roommates</CardText>
+
+            <Link to={`/whoslike/${owner}`}>
+              <Button>{numLikes} Likes</Button>
+            </Link>
+            <Link to={`/flats/${_id}/edit`}>
+              <Button>Edit this Flat</Button>
+            </Link>
+            <Button onClick={() => this.deleteClick()}>Delete</Button>
+            <Link to="/my-flats">
+              <Button>Back to my list</Button>
+            </Link>
+          </CardBody>
+        </Card>
+        {/* <h3>
           {housing} {roomNum} pièces de {area}
         </h3>
         <p>Address : {address}</p>
         <p>
-          PARIS {zipCode} | {roomMate} autres personnes
+          PARIS {zipCode} | {roomMate} other roommates
         </p>
         <p>{description}</p>
         <p>
@@ -124,7 +192,7 @@ class FlatDetails extends Component {
         <br />
         <button onClick={() => this.deleteClick()}>Delete this flat</button>
         <br />
-        <Link to="/my-flats">Back to my list</Link>
+        <Link to="/my-flats">Back to my list</Link> */}
       </section>
     );
   }
