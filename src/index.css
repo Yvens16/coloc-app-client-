@@ -4,15 +4,18 @@ body {
   font-family: sans-serif;
 }
 
-
-.UserSign{
+.UserSign {
   display: flex;
   flex-direction: column;
   background-color: red;
 }
 
-.OwnerSign{
+.OwnerSign {
   display: flex;
   flex-direction: column;
   background-color: blue;
+}
+
+#btn-add-flat {
+  margin: 50px 45%;
 }

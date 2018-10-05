@@ -71,7 +71,7 @@ class MyFlats extends Component {
         //   </div> */}
 
         <Link to="/flats-add">
-          <Button>Add a flat</Button>
+          <Button id="btn-add-flat">Add a flat</Button>
         </Link>
       </section>
     );

@@ -143,7 +143,6 @@ class RoomDetails extends React.Component {
           <CardBody>
               <CardTitle>{owner.lastName} {owner.firstName} | {owner.age} years old</CardTitle>
               <CardText>{owner.presentation}</CardText>
-              <b>{owner.phone} | {owner.email}</b>
           </CardBody>
           <Link to="/room-list"> Return </Link>
       </Card> 

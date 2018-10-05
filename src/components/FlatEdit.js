@@ -356,7 +356,7 @@ class FlatEdit extends Component {
             {/* <!-- Card group --> */}
             {/* <!-- Grid row --> */}
 
-            <button type="submit" class="btn btn-primary btn-md">
+            <button type="submit" className="btn btn-primary btn-md">
               Save changes
             </button>
           </form>

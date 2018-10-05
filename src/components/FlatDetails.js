@@ -159,14 +159,16 @@ class FlatDetails extends Component {
             <CardText>{roomMate} other roommates</CardText>
 
             <Link to={`/whoslike/${owner}`}>
-              <Button>{numLikes} Likes</Button>
+              <button className="btn1">{numLikes} ❤️</button>
             </Link>
             <Link to={`/flats/${_id}/edit`}>
-              <Button>Edit this Flat</Button>
+              <button className="btn1">Edit</button>
             </Link>
-            <Button onClick={() => this.deleteClick()}>Delete</Button>
+            <button className="btn1" onClick={() => this.deleteClick()}>
+              Delete
+            </button>
             <Link to="/my-flats">
-              <Button>Back to my list</Button>
+              <button className="btn1">Back</button>
             </Link>
           </CardBody>
         </Card>
