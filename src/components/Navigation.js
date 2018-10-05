@@ -6,14 +6,13 @@ function Navigation(props) {
   const { currentUser } = props;
 
   return (
-    <Navbar brand="Logo" right>
+    <Navbar className="nav"    right>
       {currentUser && (
         <span>
           <NavItem>
             <NavLink exact to="/">
               Home
             </NavLink>
-            <br />
           </NavItem>
           <NavItem>
             <NavLink to="/room-list">Room list</NavLink>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Card, CardTitle } from "react-materialize";
+import { Card, CardImage, CardBody, CardTitle, CardText, Button } from 'mdbreact';
+
 
 import "font-awesome/css/font-awesome.min.css";
 import "bootstrap-css-only/css/bootstrap.min.css";
@@ -61,45 +62,38 @@ class RoomList extends Component {
     const { currentUser } = this.props;
 
     return (
-      <section>
+      <section className="background">
         <Search
           inputValue={userInput}
           onZipSearch={event => this.updateZipCode(event)}
         />
-        <h2>Room list</h2>
+        <div className="wrapper">
+        <div className="center">
+        <h2 className="room-list">Room list</h2>
+        </div>
+        </div>
 
         {rooms.map(oneRoom => (
           <li key={oneRoom._id}>
-            <Card
-              className="medium"
-              header={
-                <CardTitle image={oneRoom.picture[0]}>
-                  A {oneRoom.roomNum} rooms {oneRoom.housing} of {oneRoom.area}{" "}
-                  m2
-                </CardTitle>
-              }
-              actions={[
-                <Link
-                  to={{
-                    pathname: `/room-details/${oneRoom._id}`,
-                    state: { oneRoom: "oneRoom" }
-                  }}
-                >
-                  Rooms details
-                </Link>
-              ]}
-            >
-              <b>
-                {oneRoom.zipCode} | {oneRoom.roomMate} other room-mates
-              </b>
-              <h1>
-                <b> {oneRoom.rent}€ </b>
-              </h1>
-              {currentUser && (
-                <button onClick={() => this.handleLike(oneRoom)}>like </button>
-              )}
-              <p> {oneRoom.description} </p>
-            </Card>
+
+          
+          <Card reverse className="card">
+          <CardImage cascade className="img-fluid" className="img" src={oneRoom.picture[0]} />
+          <CardBody cascade>
+              <CardTitle>A {oneRoom.roomNum} rooms {oneRoom.housing} of {oneRoom.area} m2
+              <p>{oneRoom.zipCode} | {oneRoom.roomMate} other room-mates</p>
+              {oneRoom.rent}€
+              </CardTitle>
+              <CardText>{oneRoom.description}</CardText>
+               <Link className="btn1"  
+              to={{
+                pathname: `/room-details/${oneRoom._id}`,
+                state: { oneRoom: "oneRoom" }
+              }}
+            > Details </Link>
+          </CardBody>
+      </Card>
+      
           </li>
         ))}
       </section>
