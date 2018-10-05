@@ -7,6 +7,7 @@ class Search extends React.Component{
       <div className="active-purple-3  mb-3">
   <input 
   type="search" 
+  id="search-input"
       placeholder="Search by arrondissement or housing"
       value={this.props.inputValue}
       onChange={this.props.onZipSearch}

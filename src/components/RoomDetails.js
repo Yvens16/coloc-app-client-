@@ -104,6 +104,7 @@ class RoomDetails extends React.Component {
                     <CarouselItem key={index} itemId={index + 1}>
                       <View>
                         <img
+                        id="image"
                           className="d-block w-100"
                           src={onePic}
                           alt="Third slide"
@@ -121,7 +122,7 @@ class RoomDetails extends React.Component {
                 })}
               </CarouselInner>
             </Carousel>
-          <Button onClick={() => this.likeHandler(owner)}> LIKE </Button>
+          <button className="btn1" onClick={() => this.likeHandler(owner)}> LIKE </button>
           </Container>
           <CardBody cascade>
             <CardTitle>
