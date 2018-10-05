@@ -8,7 +8,7 @@
 .home {
   background:linear-gradient(to right bottom, rgba(60, 99, 130,0.4), rgba(10, 61, 98,0.5)), url(./images/paris.jpg) no-repeat center center fixed ;
   background-size: cover;
-  height: 600px;
+  height: 100vh;
   right: 0;
   overflow: hidden;
 }
